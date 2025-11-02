@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complaint Login Page</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    background: white;
+    padding: 25px 35px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-weight: 500;
+    display: block;
+    margin-top: 10px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  button {
+    margin-top: 20px;
+    width: 100%;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #0056b3;
+  }
+
+  .timestamp {
+    text-align: center;
+    color: #555;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Complaint Login Form</h2>
+  <form id="complaintForm">
+    <label for="name">User Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="number">User Number</label>
+    <input type="tel" id="number" name="number" pattern="[0-9]{10}" maxlength="10" required>
+
+    <label for="email">User Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="language">Choose Language</label>
+    <select id="language" name="language" required>
+      <option value="">--Select--</option>
+      <option value="Hindi">Hindi</option>
+      <option value="Marathi">Marathi</option>
+      <option value="English">English</option>
+    </select>
+
+    <label for="problemType">Type of Problem</label>
+    <select id="problemType" name="problemType" required>
+      <option value="">--Select--</option>
+      <option value="Water">Water</option>
+      <option value="Education">Education</option>
+      <option value="Road">Road</option>
+      <option value="Light">Light</option>
+      <option value="Public Safety / Survey">Public Safety / Survey</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label for="comment">Description</label>
+    <textarea id="comment" name="comment" rows="4" placeholder="Write your complaint here..." required></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="timestamp" id="timestamp"></div>
+</div>
+
+<script>
+  const form = document.getElementById('complaintForm');
+  const timestampDiv = document.getElementById('timestamp');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Get current date & time
+    const now = new Date();
+    const formatted = now.toLocaleString();
+
+    // Collect data (for backend later)
+    const formData = {
+      name: form.name.value,
+      number: form.number.value,
+      email: form.email.value,
+      language: form.language.value,
+      problemType: form.problemType.value,
+      comment: form.comment.value,
+      dateTime: formatted
+    };
+
+    console.log("Form Submitted:", formData); // for now shows in console
+
+    // Show time confirmation
+    timestampDiv.innerHTML = ✔ Complaint submitted on <strong>${formatted}</strong>;
+
+    // Reset form after submission
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
